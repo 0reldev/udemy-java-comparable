@@ -1,6 +1,7 @@
 package dev.lpa;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
 
@@ -46,11 +47,14 @@ public class Main {
         Student[] students = {new Student("Zach"), new Student("Tim"), new Student("Ann")};
         Arrays.sort(students);
         System.out.println(Arrays.toString(students));
-//          [Ann, Tim, Zach]
+//          [1001 - Zach (1,77), 1002 - Tim (2,86), 1003 - Ann (1,42)]
 
-        System.out.println("result = " + tim.compareTo(("Mary")));
-//        Exception in thread "main" java.lang.ClassCastException: class java.lang.String cannot be cast to class dev.lpa.Student (java.lang.String is in module java.base of loader 'bootstrap'; dev.lpa.Student is in unnamed module of loader 'app')
-//        at dev.lpa.Student.compareTo(Student.java:18)
-//        at dev.lpa.Main.main(Main.java:51)
+        System.out.println("result = " + tim.compareTo(new Student("Mary")));
+//        result = -1
+
+        Comparator<Student> gpaSorter = new StudentGPAComparator();
+        Arrays.sort(students, gpaSorter.reversed());
+        System.out.println(Arrays.toString(students));
+//          [1002 - Tim (3,28), 1003 - Ann (2,60), 1001 - Zach (2,30)]
     }
 }
